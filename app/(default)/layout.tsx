@@ -1,4 +1,6 @@
-import Header from '~/components/layout/Header'
+import type { Metadata } from "next";
+import Header from "~/components/layout/Header";
+
 
 export default async function DefaultLayout({
   children,
@@ -7,7 +9,7 @@ export default async function DefaultLayout({
 }>) {
   return (
     <>
-      <Header/>
+      <Header />
       {children}
     </>
   );
