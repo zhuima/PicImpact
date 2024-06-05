@@ -1,31 +1,35 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { ImageHandleProps, ImageType } from '~/types'
-import PhotoAlbum from 'react-photo-album'
-import { Button, Image, Spinner } from '@nextui-org/react'
-import { useSWRPageTotalHook } from '~/hooks/useSWRPageTotalHook'
-import useSWRInfinite from 'swr/infinite'
-import { useButtonStore } from '~/app/providers/button-store-Providers'
-import MasonryItem from '~/components/MasonryItem'
+import React from "react";
+import { ImageHandleProps, ImageType } from "~/types";
+import PhotoAlbum from "react-photo-album";
+import { Button, Image, Spinner } from "@nextui-org/react";
+import { useSWRPageTotalHook } from "~/hooks/useSWRPageTotalHook";
+import useSWRInfinite from "swr/infinite";
+import { useButtonStore } from "~/app/providers/button-store-Providers";
+import MasonryItem from "~/components/MasonryItem";
 
-export default function Masonry(props : Readonly<ImageHandleProps>) {
-  const { data: pageTotal } = useSWRPageTotalHook(props)
-  const { data, error, isLoading, isValidating, size, setSize } = useSWRInfinite((index) => {
-    return [`client-${props.args}-${index}-${props.tag}`, index]
-    },
-    ([_, index]) => {
-      return props.handle(index + 1, props.tag)
-    }, {
-      revalidateOnFocus: false,
-      revalidateIfStale: false,
-      revalidateOnReconnect: false,
-    })
+export default function Masonry(props: Readonly<ImageHandleProps>) {
+  const { data: pageTotal } = useSWRPageTotalHook(props);
+  const { data, error, isLoading, isValidating, size, setSize } =
+    useSWRInfinite(
+      (index) => {
+        return [`client-${props.args}-${index}-${props.tag}`, index];
+      },
+      ([_, index]) => {
+        return props.handle(index + 1, props.tag);
+      },
+      {
+        revalidateOnFocus: false,
+        revalidateIfStale: false,
+        revalidateOnReconnect: false,
+      }
+    );
   const dataList = data ? [].concat(...data) : [];
 
   const { setMasonryView, setMasonryViewData } = useButtonStore(
-    (state) => state,
-  )
+    (state) => state
+  );
 
   return (
     <div className="w-full sm:w-4/5 mx-auto p-2">
@@ -40,7 +44,7 @@ export default function Masonry(props : Readonly<ImageHandleProps>) {
           dataList?.map((item: ImageType) => ({
             src: item.preview_url || item.url,
             alt: item.detail,
-            ...item
+            ...item,
           })) || []
         }
         renderPhoto={({ photo, wrapperStyle, renderDefaultPhoto }) => (
@@ -54,33 +58,33 @@ export default function Masonry(props : Readonly<ImageHandleProps>) {
               isBlurred
               shadow="sm"
               onClick={() => {
-                setMasonryView(true)
-                setMasonryViewData(photo)
+                setMasonryView(true);
+                setMasonryViewData(photo);
               }}
             />
           </div>
         )}
       />
       <div className="flex items-center justify-center my-4">
-        {
-          isValidating ?
-            <Spinner label="Loading..." color="primary" />
-            :
-          size < pageTotal &&
+        {isValidating ? (
+          <Spinner label="Loading..." color="primary" />
+        ) : (
+          size < pageTotal && (
             <Button
               color="primary"
               variant="bordered"
               isLoading={isLoading}
               onClick={() => {
-                setSize(size + 1)
+                setSize(size + 1);
               }}
-              aria-label="加载更多"
+              aria-label="Load More"
             >
-              加载更多
+              Load More
             </Button>
-        }
+          )
+        )}
       </div>
       <MasonryItem />
     </div>
-  )
+  );
 }
