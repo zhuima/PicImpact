@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Logo() {
   return (
     <Link href="/" className="select-none">
-      Twitter Phone Wallpaper Collection
+      Twitter Wallpaper Collection
       {/* <Image
         src={favicon}
         alt="Logo"
