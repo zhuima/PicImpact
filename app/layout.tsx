@@ -2,14 +2,14 @@
  * @Author: zhuima zhuima314@gmail.com
  * @Date: 2024-06-05 09:05:59
  * @LastEditors: zhuima zhuima314@gmail.com
- * @LastEditTime: 2024-06-05 11:01:20
+ * @LastEditTime: 2024-06-05 13:03:30
  * @FilePath: /PicImpact/app/layout.tsx
  * @Description:
  *
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 import type { Metadata, ResolvingMetadata } from "next";
-
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { NextUIProviders } from "~/app/providers/next-ui-providers";
 import { ToasterProviders } from "~/app/providers/toaster-providers";
 import { SessionProviders } from "~/app/providers/session-providers";
@@ -91,6 +91,9 @@ export default function RootLayout({
           </ButtonStoreProvider>
         </SessionProviders>
       </body>
+      <GoogleAnalytics
+        gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ""}
+      />
     </html>
   );
 }

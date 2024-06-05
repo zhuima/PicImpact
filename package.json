@@ -20,6 +20,7 @@
     "@auth/prisma-adapter": "^2.2.0",
     "@aws-sdk/client-s3": "^3.588.0",
     "@douyinfe/semi-ui": "^2.59.1",
+    "@next/third-parties": "^14.2.3",
     "@nextui-org/react": "^2.4.1",
     "@prisma/client": "^5.14.0",
     "@radix-ui/react-dialog": "^1.0.5",
