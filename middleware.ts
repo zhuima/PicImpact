@@ -15,7 +15,10 @@ import { NextResponse } from "next/server";
 
 export default auth((req) => {
   // 直接通过 /api/v1/get-tags 请求，不进行认证
-  if (req.nextUrl.pathname === "/api/v1/get-tags") {
+  if (
+    req.nextUrl.pathname === "/api/v1/get-tags" ||
+    req.nextUrl.pathname === "/api/v1/file-upload"
+  ) {
     return NextResponse.next();
   }
 
