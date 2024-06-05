@@ -212,10 +212,10 @@ export default function FileUpload() {
       label: "Cloudflare R2",
       value: "r2",
     },
-    {
-      label: "AList API",
-      value: "alist",
-    },
+    // {
+    //   label: "AList API",
+    //   value: "alist",
+    // },
   ];
 
   const { Dragger } = Upload;
